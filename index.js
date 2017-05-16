@@ -1,28 +1,24 @@
 var HelloClass = React.createClass({
     render : function(){
         return (
-            React.DOM.div(null,
-                React.DOM.h1(null, this.props.title)
-            )
+            <div>
+                <h1>{this.props.title}</h1>
+            </div>
         )
     }
 });
 
-var HelloClassElement1 = React.createElement(HelloClass, {title : 'first title'});
-var HelloClassElement2 = React.createElement(HelloClass, {title : 'second title'});
 
-
-var ParentComponent = React.createClass({
+var ParentClass = React.createClass({
     render : function(){
         return (
-            React.DOM.div(null,
-                HelloClassElement1,
-                HelloClassElement2
-            )
+            <div>
+                <HelloClass title="first title"/>
+                <HelloClass title="second title"/>
+                <HelloClass title="third title"/>
+            </div>
         )
     }
-});
+})
 
-
-
-ReactDOM.render(React.createElement(ParentComponent), document.getElementById('app'));
+ReactDOM.render(<ParentClass/>, document.getElementById('app'));
