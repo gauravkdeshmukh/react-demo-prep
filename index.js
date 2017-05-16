@@ -35,7 +35,26 @@ var Comment = new React.createClass({
 });
 
 var CommentBox = React.createClass({
+	getInitialState : function() {
+		return {
+			comments: [
+				{title: "title 1", comment: "React works for the most part", author: "MJ", date: "2 Aug 2013"},
+				{title: "title 2", comment: "React works for the most part", author: "MJ", date: "2 Aug 2013"},
+				{title: "title 3", comment: "React works for the most part", author: "MJ", date: "2 Aug 2013"},
+				{title: "title 4", comment: "React works for the most part", author: "MJ", date: "2 Aug 2013"},
+			]
+
+		}
+	},
+	
     render : function(){
+
+
+
+	    var commentNodes = this.state.comments.map(function(c){
+	        return <Comment key={c.title} title={c.title} comment={c.comment} author={c.author} date={c.date} />
+		});
+
         return (
             <div className="container">
                 <div className="row">
@@ -48,9 +67,7 @@ var CommentBox = React.createClass({
                         </div>
                         <div className="panel-body">
                             <ul className="list-group">
-                                <Comment title="React works" comment="React works for the most part" author="MJ" date="2 Aug 2013" />
-                                <Comment title="Example for props" comment="pass attributes from the element" author="AM" date="2 Sep 2013"/>
-                                <Comment title="Component within component" comment="nested components" author="BN" date="2 Oct 2013"/>
+                                {commentNodes}
                             </ul>
                         </div>
                     </div>
