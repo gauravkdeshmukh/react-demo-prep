@@ -71,7 +71,7 @@ var CommentBox = React.createClass({
                             <span className="glyphicon glyphicon-comment"></span>
                             <h3 className="panel-title">
                                 Recent Comments</h3>
-                            <span className="label label-info">{this.state.comments.length}</span>
+                            <span className="label label-info">55</span>
                         </div>
 						<div className="panel-heading">
 							<form onSubmit={this.handleSubmit}>
