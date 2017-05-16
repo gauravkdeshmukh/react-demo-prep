@@ -46,10 +46,18 @@ var CommentBox = React.createClass({
 
 		}
 	},
+
+    handleSubmit : function(event){
+		event.preventDefault();
+		let newCommentAdded = this.newCommentAdded.value;
+		var commentObj = {title: "title "+this.state.comments.length +1, comment: newCommentAdded, author: "MJ", date: "2 Aug 2013"} ;
+		var newComments = this.state.comments.concat(commentObj);
+		this.setState({
+			comments : newComments
+		});
+	},
 	
     render : function(){
-
-
 
 	    var commentNodes = this.state.comments.map(function(c){
 	        return <Comment key={c.title} title={c.title} comment={c.comment} author={c.author} date={c.date} />
@@ -59,16 +67,23 @@ var CommentBox = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="panel panel-default widget">
-                        <div className="panel-heading">
+						<div className="panel-heading">
                             <span className="glyphicon glyphicon-comment"></span>
                             <h3 className="panel-title">
                                 Recent Comments</h3>
-                            <span className="label label-info">78</span>
+                            <span className="label label-info">{this.state.comments.length}</span>
                         </div>
+						<div className="panel-heading">
+							<form onSubmit={this.handleSubmit}>
+								<textarea ref={ (comment) => {this.newCommentAdded = comment} } name="addComments" id="addComments" cols="30" rows="10"></textarea>
+								<button type="submit">Add Comment</button>
+							</form>
+						</div>
                         <div className="panel-body">
                             <ul className="list-group">
                                 {commentNodes}
                             </ul>
+							<a href="#" className="btn btn-primary btn-sm btn-block" role="button"><span className="glyphicon glyphicon-refresh"></span> More</a>
                         </div>
                     </div>
                 </div>
