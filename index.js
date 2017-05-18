@@ -51,28 +51,27 @@ var CommentBox = React.createClass({
 		}
 	},
     handleDelete: function(commentId){
-	    var newComments = this.state.comments
-        newComments.splice(commentId,1);
+	    var newComments = this.state.comments;
+        delete newComments[commentId];
         this.setState({
             comments : newComments
         });
     },
+
     handleSubmit : function(event){
 		event.preventDefault();
 		let newCommentAdded = this.newCommentAdded.value;
-		var commentObj = {title: "title "+ (this.state.comments.length + 1), comment: newCommentAdded, author: "MJ", date: "2 Aug 2013"} ;
+		var commentObj = {title: "title "+ (this.state.comments.length+1), comment: newCommentAdded, author: "MJ", date: "2 Aug 2013"} ;
 		var newComments = this.state.comments.concat(commentObj);
 		this.setState({
 			comments : newComments
 		});
 	},
 
-
-
     render : function(){
 
 	    var commentNodes = this.state.comments.map((c,index) => {
-	        return <Comment index={index} key={c.title} title={c.title} comment={c.comment} author={c.author} date={c.date} removeMe={this.handleDelete}/>
+	        return <Comment index={index} key={index+1} title={c.title} comment={c.comment} author={c.author} date={c.date} removeMe={this.handleDelete}/>
 		});
 
         return (
