@@ -50,7 +50,7 @@ var CommentBox = React.createClass({
     handleSubmit : function(event){
 		event.preventDefault();
 		let newCommentAdded = this.newCommentAdded.value;
-		var commentObj = {title: "title "+this.state.comments.length +1, comment: newCommentAdded, author: "MJ", date: "2 Aug 2013"} ;
+		var commentObj = {title: "title "+ (this.state.comments.length + 1), comment: newCommentAdded, author: "MJ", date: "2 Aug 2013"} ;
 		var newComments = this.state.comments.concat(commentObj);
 		this.setState({
 			comments : newComments
@@ -71,7 +71,7 @@ var CommentBox = React.createClass({
                             <span className="glyphicon glyphicon-comment"></span>
                             <h3 className="panel-title">
                                 Recent Comments</h3>
-                            <span className="label label-info">55</span>
+                            <span className="label label-info">{commentNodes.length}</span>
                         </div>
 						<div className="panel-heading">
 							<form onSubmit={this.handleSubmit}>
