@@ -1,8 +1,14 @@
 var Comment = new React.createClass({
     delete: function(){
         event.preventDefault();
-        var commentId = this.props.index
+        var commentId = this.props.title
         this.props.removeMe(commentId)
+    },
+
+    strikeComment: function(){
+        event.preventDefault();
+        var commentId = this.props.title
+        this.props.strikeMe(commentId)
     },
     render : function(){
        return (
@@ -25,7 +31,7 @@ var Comment = new React.createClass({
                            <button type="button" className="btn btn-primary btn-xs" title="Edit">
                                <span className="glyphicon glyphicon-pencil"></span>
                            </button>
-                           <button type="button" className="btn btn-success btn-xs" title="Approved">
+                           <button type="button" className="btn btn-success btn-xs" title="Approved" onClick={this.strikeComment} >
                                <span className="glyphicon glyphicon-ok"></span>
                            </button>
                            <button type="button" className="btn btn-danger btn-xs" title="Delete" onClick={this.delete}>
@@ -52,7 +58,21 @@ var CommentBox = React.createClass({
 	},
     handleDelete: function(commentId){
 	    var newComments = this.state.comments;
-        delete newComments[commentId];
+        newComments = newComments.filter(function(c){
+            return c.title !== commentId;
+        });
+        this.setState({
+            comments : newComments
+        });
+    },
+
+    handleStrike: function(commentId){
+        var newComments = this.state.comments;
+        newComments.forEach((c)=> {
+           if(c.title === commentId){
+               c.comment = <strike> {c.comment} </strike>
+           }
+        });
         this.setState({
             comments : newComments
         });
@@ -70,8 +90,8 @@ var CommentBox = React.createClass({
 
     render : function(){
 
-	    var commentNodes = this.state.comments.map((c,index) => {
-	        return <Comment index={index} key={index+1} title={c.title} comment={c.comment} author={c.author} date={c.date} removeMe={this.handleDelete}/>
+	    var commentNodes = this.state.comments.map((c) => {
+	        return <Comment key={c.title} title={c.title} comment={c.comment} author={c.author} date={c.date} removeMe={this.handleDelete} strikeMe={this.handleStrike}/>
 		});
 
         return (
